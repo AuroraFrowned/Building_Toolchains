@@ -1,0 +1,77 @@
+# Description: Build Toolchains using GitHub Actions
+
+name: Build Toolschain
+
+# Controls when the action will run. 
+on: 
+  push:
+    branches:
+      - dev
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # Name the Job
+    name: Build Toolschain Miples
+    # The type of runner that the job will run on
+    runs-on: ubuntu-18.04
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Initialization environment & Installation depends
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo apt-get -y update
+          sudo apt-get install -y gcc g++ gperf bison flex texinfo help2man make libncurses5-dev \
+          python3-dev autoconf automake libtool libtool-bin gawk wget bzip2 xz-utils unzip \
+          patch libstdc++6 rsync
+      
+      - name: Get source code
+        run: |
+          git clone https://github.com/crosstool-ng/crosstool-ng
+          cd crosstool-ng
+          mkdir src
+          wget https://mirrors.aliyun.com/linux-kernel/v3.x/linux-3.4.113.tar.gz && tar zxvf linux-3.4.113.tar.gz
+          wget https://downloads.uclibc-ng.org/releases/1.0.32/uClibc-ng-1.0.32.tar.gz && tar zxvf linux-3.4.113.tar.gz
+
+      - name: Generate config file
+        run: |
+          cd crosstool-ng
+          ./bootstrap && ./configure --enable-local && make
+          mkdir -p samples/mipsel-linux-uclibc
+          cd samples/mipsel-linux-uclibc
+          wget https://cdn.jsdelivr.net/gh/AuroraFrowned/Building_Toolchains@dev/mipsel-linux-uclibc/crosstool.config
+          wget https://cdn.jsdelivr.net/gh/AuroraFrowned/Building_Toolchains@dev/mipsel-linux-uclibc/crosstool.config
+          wget https://cdn.jsdelivr.net/gh/AuroraFrowned/Building_Toolchains@dev/mipsel-linux-uclibc/crosstool.config
+          cd ../..
+          ./ct-ng mipsel-linux-uclibc
+
+      - name: Build
+        run: |
+          cd crosstool-ng-1.24.0
+          ./ct-ng clean
+          ./ct-ng mipsel-linux-uclibc
+          ./ct-ng build.$(nproc)
+
+      - name: Check configuration
+          cd crosstool-ng
+          ./ct-ng version >> x-tools/INFO.oe
+          ./ct-ng show-tuple >> x-tools/INFO.oe
+          ./ct-ng show mipsel-linux-uclibc >> x-tools/INFO.oe
+
+      - name: Compress toolchain
+        run: |
+          cd crosstool-ng
+          tar -zcvf x-tools.tar.gz x-tools
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@master
+        with: 
+          name: x-tools
+          path: x-tools.tar.gz
