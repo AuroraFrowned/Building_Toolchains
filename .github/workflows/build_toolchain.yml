@@ -52,7 +52,7 @@ jobs:
 
       - name: Build
         run: |
-          cd crosstool-ng-1.24.0
+          cd crosstool-ng
           ./ct-ng clean
           ./ct-ng mipsel-linux-uclibc
           ./ct-ng build.$(nproc)
