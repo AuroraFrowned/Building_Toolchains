@@ -60,6 +60,7 @@ jobs:
           ./ct-ng build.$(nproc)
 
       - name: Check configuration
+        run: |
           cd crosstool-ng
           ./ct-ng version >> x-tools/INFO.oe
           ./ct-ng show-tuple >> x-tools/INFO.oe
