@@ -61,14 +61,13 @@ jobs:
       - name: Check configuration
         run: |
           cd crosstool-ng
-          ./ct-ng version >> x-tools/INFO.oe
-          ./ct-ng show-tuple >> x-tools/INFO.oe
-          ./ct-ng show mipsel-linux-uclibc >> x-tools/INFO.oe
+          ./ct-ng version >> ${HOME}/x-tools/INFO.oe
+          ./ct-ng show-tuple >> ${HOME}/x-tools/INFO.oe
+          ./ct-ng show mipsel-linux-uclibc >> ${HOME}/x-tools/INFO.oe
 
       - name: Compress toolchain
         run: |
-          cd crosstool-ng
-          tar -zcvf x-tools.tar.gz x-tools
+          tar -zcvf x-tools.tar.gz ${HOME}/x-tools
 
       - name: Upload artifact
         uses: actions/upload-artifact@master
