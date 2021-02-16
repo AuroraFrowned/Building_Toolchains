@@ -23,6 +23,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
 
+      - name: SSH to GitHub Actions
+        uses: P3TERX/ssh2actions@v1.0.0
+        
       - name: Initialization environment & Installation depends
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -57,20 +60,3 @@ jobs:
           ./ct-ng clean
           ./ct-ng mipsel-linux-uclibc
           ./ct-ng build.$(nproc)
-
-      - name: Check configuration
-        run: |
-          cd crosstool-ng
-          ./ct-ng version >> ${HOME}/x-tools/INFO.oe
-          ./ct-ng show-tuple >> ${HOME}/x-tools/INFO.oe
-          ./ct-ng show mipsel-linux-uclibc >> ${HOME}/x-tools/INFO.oe
-
-      - name: Compress toolchain
-        run: |
-          tar -zcvf x-tools.tar.gz ${HOME}/x-tools
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@master
-        with: 
-          name: x-tools
-          path: x-tools.tar.gz
