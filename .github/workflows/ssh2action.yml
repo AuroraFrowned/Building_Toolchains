@@ -1,0 +1,26 @@
+# Description: Build Toolchains using GitHub Actions
+
+name: Build Toolschain
+
+# Controls when the action will run. 
+on: 
+  push:
+    branches:
+      - dev
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # Name the Job
+    name: Build Toolschain Miples
+    # The type of runner that the job will run on
+    runs-on: ubuntu-18.04
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: SSH to GitHub Actions
+        uses: P3TERX/ssh2actions@v1.0.0
