@@ -58,5 +58,12 @@ jobs:
           ./ct-ng mipsel-linux-uclibc
           ./ct-ng build.$(nproc)
           
-      - name: SSH to GitHub Actions
-        uses: P3TERX/ssh2actions@v1.0.0
+      - name: Compress toolchain
+        run: |
+          tar -zcvf x-tools.tar.gz ../x-tools
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@master
+        with: 
+          name: x-tools
+          path: x-tools.tar.gz
