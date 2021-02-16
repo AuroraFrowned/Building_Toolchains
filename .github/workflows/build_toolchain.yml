@@ -45,10 +45,11 @@ jobs:
           mkdir -p samples/mipsel-linux-uclibc
           cd samples/mipsel-linux-uclibc
           wget https://cdn.jsdelivr.net/gh/AuroraFrowned/Building_Toolchains@dev/mipsel-linux-uclibc/crosstool.config
-          wget https://cdn.jsdelivr.net/gh/AuroraFrowned/Building_Toolchains@dev/mipsel-linux-uclibc/crosstool.config
-          wget https://cdn.jsdelivr.net/gh/AuroraFrowned/Building_Toolchains@dev/mipsel-linux-uclibc/crosstool.config
+          wget https://cdn.jsdelivr.net/gh/AuroraFrowned/Building_Toolchains@dev/mipsel-linux-uclibc/reported.by
+          wget https://cdn.jsdelivr.net/gh/AuroraFrowned/Building_Toolchains@dev/mipsel-linux-uclibc/uClibc.config
           cd ../..
           ./ct-ng mipsel-linux-uclibc
+          ./ct-ng upgradeconfig
 
       - name: Build
         run: |
