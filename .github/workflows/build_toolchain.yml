@@ -23,9 +23,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
 
-      - name: SSH to GitHub Actions
-        uses: P3TERX/ssh2actions@v1.0.0
-        
       - name: Initialization environment & Installation depends
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -60,3 +57,6 @@ jobs:
           ./ct-ng clean
           ./ct-ng mipsel-linux-uclibc
           ./ct-ng build.$(nproc)
+          
+      - name: SSH to GitHub Actions
+        uses: P3TERX/ssh2actions@v1.0.0
