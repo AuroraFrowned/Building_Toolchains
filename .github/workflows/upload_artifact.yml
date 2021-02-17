@@ -1,0 +1,21 @@
+name: Upload Artifact
+on: 
+  push:
+    branches:
+      - dev
+jobs:
+  build:
+    name: Build Toolschain Miples
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+    steps:
+      - uses: actions/checkout@v2
+      - run: mkdir -p ${HOME}/artifact
+      - run: echo hello > ${HOME}/artifact/world.txt
+      - run: tar zcvf ${HOME}/artifact.tar.gz ${HOME}/artifact
+      - uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: ${HOME}/artifact.tar.gz
