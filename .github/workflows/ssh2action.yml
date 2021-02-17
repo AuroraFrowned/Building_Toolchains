@@ -1,6 +1,6 @@
 # Description: Build Toolchains using GitHub Actions
 
-name: Build Toolschain
+name: SSH2Action
 
 # Controls when the action will run. 
 on: 
