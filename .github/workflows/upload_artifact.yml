@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - run: mkdir -p artifact
-      - run: echo hello > artifact/world.txt
-      - run: tar zcvf artifact.tar.gz artifact
+      - run: mkdir -p /home/runner/artifact
+      - run: echo hello > /home/runner/artifact/world.txt
+      - run: tar zcvf artifact.tar.gz /home/runner/artifact
       - uses: actions/upload-artifact@v2
         with:
           name: my-artifact
-          path: artifact.tar.gz
+          path: /home/runner/artifact.tar.gz
