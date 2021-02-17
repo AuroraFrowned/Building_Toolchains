@@ -14,5 +14,5 @@ jobs:
       - run: cd ${HOME} && tar zcvf artifact.tar.gz artifact
       - uses: actions/upload-artifact@v2
         with:
-          name: my-artifact
+          name: artifact.tar.gz
           path: ${HOME}/artifact.tar.gz
