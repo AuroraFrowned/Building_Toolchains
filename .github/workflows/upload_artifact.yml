@@ -12,7 +12,6 @@ jobs:
       - run: mkdir -p /home/runner/artifact
       - run: echo hello > /home/runner/artifact/world.txt
       - run: cd ${HOME} && tar zcvf artifact.tar.gz artifact
-      - uses: actions/upload-artifact@v2
-        with:
-          name: artifact.tar.gz
-          path: ${HOME}/artifact.tar.gz
+      - name: SSH to GitHub Actions
+        uses: P3TERX/ssh2actions@v1.0.0
+
