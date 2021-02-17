@@ -66,7 +66,7 @@ jobs:
           tar -zcvf x-tools.tar.gz x-tools
 
       - name: Upload artifact
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v2
         with: 
           name: x-tools
-          path: ${HOME}/x-tools.tar.gz
+          path: /home/runner/x-tools.tar.gz
