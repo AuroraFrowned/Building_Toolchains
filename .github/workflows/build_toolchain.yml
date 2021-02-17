@@ -55,15 +55,18 @@ jobs:
         run: |
           cd crosstool-ng
           ./ct-ng clean
-          ./ct-ng mipsel-linux-uclibc
           ./ct-ng build.$(nproc)
+          ./ct-ng version >> ${HOME}/x-tools/INFO.oe
+          ./ct-ng show-tuple >> ${HOME}/x-tools/INFO.oe
+          ./ct-ng show-mipsel-linux-uclibc >> ${HOME}/x-tools/INFO.oe
           
       - name: Compress toolchain
         run: |
-          tar -zcvf x-tools.tar.gz ../x-tools
+          cd ${HOME}
+          tar -zcvf x-tools.tar.gz x-tools
 
       - name: Upload artifact
         uses: actions/upload-artifact@master
         with: 
           name: x-tools
-          path: x-tools.tar.gz
+          path: ${HOME}/x-tools.tar.gz
