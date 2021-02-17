@@ -5,11 +5,8 @@ on:
       - dev
 jobs:
   build:
-    name: Build Toolschain Miples
+    name: Create
     runs-on: ubuntu-18.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@master
     steps:
       - uses: actions/checkout@v2
       - run: mkdir -p ${HOME}/artifact
