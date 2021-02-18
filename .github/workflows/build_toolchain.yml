@@ -4,8 +4,8 @@ name: Build Toolschain
 
 # Controls when the action will run. 
 on: 
-  schedule:
-    - cron:  '0 0 1 */3 *'
+  #schedule:
+    #- cron:  '0 0 1 */3 *'
   watch:
     types: [started]
   #push:
