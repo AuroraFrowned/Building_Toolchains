@@ -20,7 +20,6 @@ jobs:
     name: Build Toolschain Miples
     # The type of runner that the job will run on
     runs-on: ubuntu-18.04
-    if: github.event.repository.owner.id == github.event.sender.id
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
